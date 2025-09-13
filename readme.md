@@ -24,8 +24,8 @@ A simple desktop application designed for professors and academic staff to creat
 ## Quick Start
 
 ### Download and Run
-**Windows Download**: [schedule_generator.exe](./dist/schedule_generator.exe) (43 KB)
-**MacOS Download**: [schedule_generator.zip](./dist/schedule_generator.zip) (43 KB)
+**Windows Download**: [schedule_generator.exe](./dist/schedule_generator.exe) (44 MB)
+**MacOS Download**: [schedule_generator.zip](./dist/schedule_generator.zip) (43 MB)
 
 - For MacOS, use the Archive Utility to decompress the ZIP file.
 - Move the executable to your Desktop or somewhere convenient.
