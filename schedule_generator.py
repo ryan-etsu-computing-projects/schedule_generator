@@ -79,7 +79,7 @@ class ScheduleGenerator:
     def __init__(self, root):
         self.root = root
         self.root.title("Weekly Schedule Generator")
-        self.root.geometry("800x700")
+        self.root.geometry("840x800")
         
         # Color presets
         self.color_presets = {
@@ -373,6 +373,7 @@ class ScheduleGenerator:
                    ha='center', va='center', fontweight='bold', 
                    fontsize=14, color='white')
         
+        # DRAW GRID LINES FIRST (so they appear behind events)
         # Draw time grid with ASCENDING order (morning at top, evening at bottom)
         for hour in range(start_hour, end_hour + 1):
             # Invert y-coordinate: early hours get higher y values
@@ -387,7 +388,7 @@ class ScheduleGenerator:
         for i in range(len(selected_days) + 1):
             ax.axvline(x=i * day_width, color='lightgray', linewidth=0.5)
         
-        # Add events with corrected positioning
+        # NOW ADD EVENTS (they will appear on top of grid lines)
         day_positions = {day: i for i, day in enumerate(selected_days)}
         
         for event in self.events:
@@ -407,7 +408,7 @@ class ScheduleGenerator:
                 # Event rectangle (positioned at end_y, with height going up)
                 event_rect = patches.Rectangle((x + 0.05, end_y), day_width - 0.1, height,
                                              linewidth=2, edgecolor='darkgray',
-                                             facecolor=event.color, alpha=0.8)
+                                             facecolor=event.color, alpha=0.8, zorder=2)
                 ax.add_patch(event_rect)
                 
                 # Event text centered vertically
