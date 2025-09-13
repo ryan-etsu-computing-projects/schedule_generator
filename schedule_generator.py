@@ -83,6 +83,8 @@ class ScheduleGenerator:
         
         # Color presets
         self.color_presets = {
+            "ETSU Gold": "#ffc423",
+            "ETSU Blue": "#002d62",
             "Blue": "#3498db",
             "Orange": "#e67e22", 
             "Green": "#27ae60",
