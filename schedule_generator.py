@@ -168,7 +168,7 @@ class ScheduleGenerator:
         
         # Events treeview
         columns = ("Day", "Time", "Title", "Location", "Color")
-        self.events_tree = ttk.Treeview(list_frame, columns=columns, show="headings", height=8)
+        self.events_tree = ttk.Treeview(list_frame, columns=columns, show="headings", height=6)
         
         for col in columns:
             self.events_tree.heading(col, text=col)

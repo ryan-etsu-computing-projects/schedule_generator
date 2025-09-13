@@ -24,9 +24,14 @@ A simple desktop application designed for professors and academic staff to creat
 ## Quick Start
 
 ### Download and Run
-1. **Download**: [schedule_generator.exe](./dist/schedule_generator.exe) (43 KB)
-2. **Run**: Double-click the downloaded file to start the application
-3. **No Installation Required**: The application runs directly from the executable
+**Windows Download**: [schedule_generator.exe](./dist/schedule_generator.exe) (43 KB)
+**MacOS Download**: [schedule_generator.zip](./dist/schedule_generator.zip) (43 KB)
+
+- For MacOS, use the Archive Utility to decompress the ZIP file.
+- Move the executable to your Desktop or somewhere convenient.
+- It is slow to load on Mac. Too bad :/
+
+- **No Installation Required**: The application runs directly from the executable (or it just crashes, idk)
 
 *Note: Windows may show a security warning for downloaded executables. Click "More info" then "Run anyway" if prompted.*
 
@@ -85,7 +90,7 @@ The application accepts various time formats for your convenience:
 
 ## Technical Requirements
 
-- **Operating System**: Windows 10 or later
+- **Operating System**: Windows 10 or later or MacOS 15.6.1 or later
 - **Dependencies**: None (all required components are bundled)
 - **File Size**: 43 KB
 - **Python Version**: Built with Python 3.12.6
@@ -94,7 +99,8 @@ The application accepts various time formats for your convenience:
 
 **Q: The application won't start**
 - Try right-clicking and selecting "Run as administrator"
-- Check that Windows Defender isn't blocking the file
+- Windows: Check that Windows Defender isn't blocking the file
+- MacOS: Idk man
 
 **Q: Time format error**
 - Use the examples above as a guide
