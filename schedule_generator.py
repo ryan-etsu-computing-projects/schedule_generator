@@ -3,10 +3,35 @@ from tkinter import ttk, messagebox, filedialog, colorchooser
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_pdf import PdfPages
-import datetime
+from datetime import datetime
 from dataclasses import dataclass
 from typing import List, Tuple, Dict
+import platform
+import subprocess
+import os
 import re
+
+def get_semester() -> str:
+    now = datetime.now()
+    if now.month < 5:           # Jan-Apr → Spring (10)
+        semester = "Spring"
+    elif now.month > 8:         # Sep-Dec → Fall (80)
+        semester = "Fall"
+    elif (now.month == 8 and now.day > 15):  # Late Aug → Fall (80)
+        semester = "Fall"
+    else:                       # May-mid Aug → Summer (50)
+        semester = "Spring"
+    return f"{semester} {now.year}"
+
+def open_file_manager_to_directory(directory_path):
+    if platform.system() == "Windows":
+        os.startfile(directory_path)
+    elif platform.system() == "Darwin":  # macOS
+        subprocess.run(['open', os.path.normpath(directory_path)])
+    elif platform.system() == "Linux":
+        subprocess.run(['xdg-open', os.path.normpath(directory_path)])
+    else:
+        print(f"Unsupported operating system: {platform.system()}")
 
 @dataclass
 class ScheduleEvent:
@@ -59,6 +84,9 @@ class TimeValidator:
                         hour += 12
                     elif period == 'AM' and hour == 12:
                         hour = 0
+                
+                elif hour < 8: # No classes before 8 AM --> Translate to PM
+                    hour += 12
                 
                 # Validate ranges
                 if 0 <= hour <= 23 and 0 <= minute <= 59:
@@ -209,7 +237,7 @@ class ScheduleGenerator:
         end_time_combo.state(['readonly'])
         
         # Professor name
-        ttk.Label(options_frame, text="Name/Title:").grid(row=2, column=0, sticky=tk.W, pady=(10,0))
+        ttk.Label(options_frame, text="Instructor Name").grid(row=2, column=0, sticky=tk.W, pady=(10,0))
         self.prof_name_var = tk.StringVar()
         ttk.Entry(options_frame, textvariable=self.prof_name_var, width=25).grid(row=2, column=1, pady=(10,0))
         
@@ -305,6 +333,7 @@ class ScheduleGenerator:
                 return
             
             self.create_schedule_pdf(filename)
+            open_file_manager_to_directory(filename)
             messagebox.showinfo("Success", f"Schedule saved as {filename}")
             
         except Exception as e:
@@ -448,7 +477,7 @@ class ScheduleGenerator:
         
         # Add title
         prof_name = self.prof_name_var.get().strip()
-        title_text = f"Fall 2025 Schedule"
+        title_text = f"{get_semester()} Schedule"
         if prof_name:
             title_text += f" - {prof_name}"
         
